@@ -3,27 +3,18 @@ import * as cheerio from 'cheerio';
 
 
 
-function webScraper(arrVocab: string[]){
-    arrVocab.forEach(async word => {
-      let response = await fetch(`https://www.thesaurus.com/browse/${word}`)
-      let html = await response.text();
-      
-      const $ = await cheerio.load(html)
-    
-      let sections = $('section[data-type=thesaurus-synonyms-card]')
+export default async function webScraper(arrVocab: string[]): Promise<string[][]> {
+  const promises = arrVocab.map(async (word) => {
+    const response = await fetch(`https://www.thesaurus.com/browse/${word}`);
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    const sections = $('section[data-type=thesaurus-synonyms-card]');
+    const list = sections.children('ul').children('li');
+    const arr = list.toArray().map((e) => $(e).text());
+    return arr;
+  });
 
-
-      let list  = sections.children('ul').children('li');
-      let arr = list.toArray().map(e => $(e).text())
-
-      console.log(arr)
-
-      
-      
-
-
-      
-    })
-  }
-
-  webScraper(['restlessness', 'sly'])
+  const result = await Promise.all(promises);
+  return result;
+}
+ 
