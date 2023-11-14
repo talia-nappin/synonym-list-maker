@@ -45,9 +45,11 @@ async function saveFile() {
   fs.writeFileSync('./synonyms.txt', "")
 
   for(let i=0; i<arrSynonyms.length; i++){
-    console.log(`${arrSynonyms[i][0]} appended`)
+    
     fs.appendFileSync('./synonyms.txt',`${arrSynonyms[i][0]}: ${arrSynonyms[i][1]} \n`)
   }
+  
+  console.log("Synonyms are located in synonyms.txt")
   
 }
 
