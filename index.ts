@@ -1,5 +1,7 @@
 import * as fs from "fs";
 
+import { exit } from "process";
+
 
 
 function readFile():string[]{
@@ -7,14 +9,14 @@ function readFile():string[]{
     const vocab = fs.readFileSync("./vocab.txt", { encoding: "utf-8" });
     
     return vocab.split("\n");
-  } catch (err) {
+  } catch {
+    console.log("Provide word list in file vocab.txt")
+    fs.writeFileSync('./vocab.txt',"Replace this text with your wordlist with each word separated by new line");
+    exit(1);
     
-    console.error("You need to provide a word list in vocab.txt file")
-   throw new Error
   }
 }
 
 const arrVocab = (wordlist: string ) => wordlist.split("\n");
 
 
-console.log(arrVocab(readFile()));
