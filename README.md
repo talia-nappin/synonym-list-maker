@@ -8,7 +8,7 @@ This project scrapes [thesaurus website](https://www.thesaurus.com/) in order to
 
 ## Technologies
 Project is created with:
-* axios lib - versiob 1.1.3
+
 * cheerio lib - version 1.0.0-rc.12
 
 	
@@ -16,9 +16,8 @@ Project is created with:
 To run this project, install it locally using npm:
 
 ```
-$ cd ../lorem
 $ npm install
 $ npm run scrape
 ```
 
-**BEFORE YOU RUN THE PROJECT PUT IN YOUR FILE WITH LIST OF WORDS NAMED "VOCAB.TXT"**
+
