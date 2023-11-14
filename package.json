@@ -9,6 +9,6 @@
     "cheerio": "^1.0.0-rc.12"
   },
   "scripts": {
-    "scrape": "npx tsx./index.ts"
+    "scrape": "npx tsx ./index.ts"
   }
 }
