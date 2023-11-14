@@ -2,10 +2,11 @@ import * as fs from "fs";
 
 
 
-function readFile():string {
+function readFile():string[]{
   try {
     const vocab = fs.readFileSync("./vocab.txt", { encoding: "utf-8" });
-    return vocab;
+    
+    return vocab.split("\n");
   } catch (err) {
     
     console.error("You need to provide a word list in vocab.txt file")
