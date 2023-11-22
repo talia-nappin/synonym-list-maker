@@ -4,9 +4,15 @@ import { exit } from "process";
 
 
 
-function readFile():string[]{
+const readFile = (): string[] =>{
   try {
     const vocab = fs.readFileSync("./vocab.txt", { encoding: "utf-8" });
+
+    if(!vocab) throw new Error();
+
+    
+
+    vocab.split(" ").join("\n")
     
     return vocab.split("\n");
   } catch {
@@ -17,7 +23,7 @@ function readFile():string[]{
   }
 }
 
-async function webScraper(arrVocab: string[]){
+const webScraper = async (arrVocab: string[]) => {
   const promises =  arrVocab.map(async (word) => {
     const response = await fetch(`https://www.thesaurus.com/browse/${word}`);
     const html = await response.text();
@@ -38,7 +44,7 @@ async function webScraper(arrVocab: string[]){
  
 }
 
-async function saveFile() {
+const saveFile = async (): Promise<void>  => {
 
   const arrSynonyms = await webScraper(readFile())
 
@@ -46,9 +52,10 @@ async function saveFile() {
 
   for(let i=0; i<arrSynonyms.length; i++){
     
-    fs.appendFileSync('./synonyms.txt',`${arrSynonyms[i][0]}: ${arrSynonyms[i][1]} \n`)
+    fs.appendFileSync('./synonyms.txt',`${arrSynonyms[i][0]}: ${arrSynonyms[i][1] != "" ? arrSynonyms[i][1] : "No synonyms found"}\n`)
   }
   
+
   console.log("Synonyms are located in synonyms.txt")
   
 }
